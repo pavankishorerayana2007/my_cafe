@@ -15,5 +15,3 @@ Address, hours, phone, email, Instagram, map link, all menu items and prices, an
 
 ## About the photos
 All photos are your own, stored in the `assets` folder. To change one, replace the file with a new one of the same name, or edit its name in `script.js` (`CATS`, `SPEC`, `GALL`). Menu descriptions and prices are samples.
-
-Hero shows only your storefront photo. Pasta combo photo shows pasta, garlic bread and shakes. Menu items without a photo show a plain card.
