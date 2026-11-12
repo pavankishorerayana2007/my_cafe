@@ -15,3 +15,8 @@ Address, hours, phone, email, Instagram, map link, all menu items and prices, an
 
 ## About the photos
 All photos are your own, stored in the `assets` folder. To change one, replace the file with a new one of the same name, or edit its name in `script.js` (`CATS`, `SPEC`, `GALL`). Menu descriptions and prices are samples.
+
+## UI/UX upgrade notes
+- `styles.css` is now organised in numbered sections (tokens, base, nav, hero … responsive, reduced motion). Colours, spacing, shadows and timings are CSS variables at the top.
+- Breakpoints: laptop ≤1279px, tablet ≤900px, mobile ≤760px (hamburger menu), small phone ≤560px. The specialties pin-scroll in `script.js` uses the same 900px breakpoint.
+- The hero photo `assets/hero-front.jpg` is only 258×258 px, so it looks soft when stretched full-screen. Replace it with a photo at least 1920 px wide (same file name) for a truly sharp start screen.

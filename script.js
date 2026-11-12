@@ -21,17 +21,17 @@ $("#mas").innerHTML=GALL.map((g,i)=>`<button data-i="${i}" aria-label="Open phot
 const GAL=GALL.map(g=>({s:A(g[0]),a:g[1]}));
 /* menu */
 let cat="Hot Coffee";const mt=$("#mt");
-$("#tabs").innerHTML=Object.keys(CATS).map(c=>`<button class="tab ${c==cat?"on":""}" role="tab">${c}</button>`).join("");
+$("#tabs").innerHTML=Object.keys(CATS).map(c=>`<button class="tab ${c==cat?"on":""}" role="tab" aria-selected="${c==cat}">${c}</button>`).join("");
 function renderMenu(){const k=Object.keys(CATS).indexOf(cat);mt.innerHTML=CATS[cat].map((s,i)=>{const[n,d,p,f]=s.split(":");return`<article class="card${f?"":" np"}" tabindex="0" aria-label="${n}, ₹${p}">${f?`<img src="${A(f)}" alt="${n}" width="600" height="800" loading="lazy">`:`<span class="mono" aria-hidden="true">${n[0]}</span>`}<div class="in"><h3>${n}</h3><span class="p">₹${p}</span><p class="d">${d}</p></div></article>`}).join("");mt.scrollLeft=0;prog();if(window.gsap&&!RED)gsap.from(".card",{y:40,opacity:0,stagger:.08,duration:.6})}
-$("#tabs").onclick=e=>{if(e.target.matches(".tab")){cat=e.target.textContent;$$(".tab").forEach(t=>t.classList.toggle("on",t==e.target));renderMenu()}};
-const prog=()=>$("#mb").style.width=(mt.scrollWidth>mt.clientWidth?(mt.scrollLeft+mt.clientWidth)/mt.scrollWidth*100:100)+"%";
+$("#tabs").onclick=e=>{if(e.target.matches(".tab")){cat=e.target.textContent;$$(".tab").forEach(t=>{t.classList.toggle("on",t==e.target);t.setAttribute("aria-selected",t==e.target)});e.target.scrollIntoView({inline:"center",block:"nearest",behavior:RED?"auto":"smooth"});renderMenu()}};
+const prog=()=>{$("#mb").style.width=(mt.scrollWidth>mt.clientWidth?(mt.scrollLeft+mt.clientWidth)/mt.scrollWidth*100:100)+"%";$("#mp").disabled=mt.scrollLeft<=8;$("#mn").disabled=mt.scrollLeft+mt.clientWidth>=mt.scrollWidth-2};addEventListener("resize",()=>prog());
 mt.onscroll=prog;$("#mp").onclick=()=>mt.scrollBy({left:-280,behavior:"smooth"});$("#mn").onclick=()=>mt.scrollBy({left:280,behavior:"smooth"});
 let dg=0,dx=0,ds=0;mt.onpointerdown=e=>{if(e.pointerType=="mouse"){dg=1;dx=e.clientX;ds=mt.scrollLeft}};addEventListener("pointerup",()=>{dg=0;mt.style.scrollSnapType=""});mt.onpointermove=e=>{if(dg){mt.style.scrollSnapType="none";mt.scrollLeft=ds-(e.clientX-dx)}};
 mt.addEventListener("wheel",e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){const end=e.deltaY>0?mt.scrollLeft+mt.clientWidth>=mt.scrollWidth-2:mt.scrollLeft<=0;if(!end){e.preventDefault();mt.scrollLeft+=e.deltaY}}},{passive:false});
 if(!TOUCH&&!RED)document.addEventListener("pointermove",e=>{const c=e.target.closest&&e.target.closest(".card,.sc .art");$$(".card,.sc .art").forEach(k=>{if(k!=c)k.style.transform=""});if(c){const r=c.getBoundingClientRect();c.style.transform=`perspective(700px) rotateY(${((e.clientX-r.left)/r.width-.5)*14}deg) rotateX(${-((e.clientY-r.top)/r.height-.5)*14}deg)`}});
 renderMenu();
 /* lightbox */
-let gi=0,lf;const show=i=>{gi=(i+GAL.length)%GAL.length;$("#li").onerror=()=>{$("#li").onerror=null;$("#li").src=GAL[gi].f};$("#li").src=GAL[gi].s;$("#li").alt=GAL[gi].a};
+let gi=0,lf;const show=i=>{gi=(i+GAL.length)%GAL.length;const im=$("#li"),lb=$("#lb");lb.dataset.state="loading";im.onload=()=>{lb.dataset.state="ready"};im.onerror=()=>{lb.dataset.state="error"};im.alt=GAL[gi].a;im.src=GAL[gi].s};
 $("#mas").onclick=e=>{const b=e.target.closest("button");if(b){lf=b;show(+b.dataset.i);$("#lb").hidden=false;$("#lx").focus()}};
 const close=()=>{$("#lb").hidden=true;lf&&lf.focus()};$("#lx").onclick=close;$("#lp").onclick=()=>show(gi-1);$("#ln").onclick=()=>show(gi+1);
 addEventListener("keydown",e=>{if($("#lb").hidden)return;if(e.key=="Escape")close();if(e.key=="ArrowLeft")show(gi-1);if(e.key=="ArrowRight")show(gi+1);if(e.key=="Tab"){const f=$$("#lb button");const a=f[0],z=f[f.length-1];if(e.shiftKey&&document.activeElement==a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement==z){e.preventDefault();a.focus()}}});
@@ -48,7 +48,7 @@ $$(".rv").forEach(e=>gsap.from(e,{y:50,opacity:0,duration:1,ease:"power3.out",sc
 $$(".ir").forEach(e=>gsap.fromTo(e,{clipPath:"inset(0 0 100% 0)"},{clipPath:"inset(0 0 0% 0)",duration:1.4,ease:"power3.inOut",scrollTrigger:{trigger:e,start:"top 85%"}}));
 $$("[data-d]").forEach(e=>gsap.to(e,{yPercent:+e.dataset.d,ease:"none",scrollTrigger:{trigger:e.parentElement,scrub:true,start:"top bottom",end:"bottom top"}}));
 gsap.from("#mas button",{y:60,opacity:0,stagger:.1,duration:.9,scrollTrigger:{trigger:"#mas",start:"top 85%"}});
-ScrollTrigger.matchMedia({"(min-width:801px) and (min-height:561px)":()=>{const s=$("#strip");gsap.to(s,{x:()=>-(s.scrollWidth-innerWidth+innerWidth*.12),ease:"none",scrollTrigger:{trigger:".pin",pin:true,scrub:1,end:()=>"+="+s.scrollWidth,invalidateOnRefresh:true}})}})}
+ScrollTrigger.matchMedia({"(min-width:901px) and (min-height:561px)":()=>{const s=$("#strip");gsap.to(s,{x:()=>-(s.scrollWidth-innerWidth+innerWidth*.12),ease:"none",scrollTrigger:{trigger:".pin",pin:true,scrub:1,end:()=>"+="+s.scrollWidth,invalidateOnRefresh:true}})}})}
 /* 3D cup + beans + particles (Three.js), mouse-responsive, paused off-screen */
 (function(){const hero=$(".hero");try{if(!window.THREE)throw 0;const r=new THREE.WebGLRenderer({canvas:$("#cv"),alpha:true,antialias:true});r.setPixelRatio(Math.min(devicePixelRatio,1.5));const sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(40,1,.1,60);cam.position.set(0,1.6,8);
 sc.add(new THREE.AmbientLight(0xffffff,.6));const L=new THREE.DirectionalLight(0xffd9a0,1.4);L.position.set(4,6,5);sc.add(L);
@@ -61,3 +61,13 @@ let mx=0,my=0,run=true,t0=Date.now();addEventListener("pointermove",e=>{mx=e.cli
 new IntersectionObserver(e=>{run=e[0].isIntersecting;if(run)loop()}).observe(hero);
 function loop(){if(!run)return;const t=(Date.now()-t0)/1000,k=Math.min(t/1.6,1),e=1-Math.pow(1-k,3);g.position.y=-3+3*e+(RED?0:Math.sin(t)*.12);g.rotation.y=(RED?0:t*.35)+mx*1.2+(1-e)*6;g.rotation.x=my*.4;g.rotation.z=.12;
 beans.forEach(b=>{if(!RED){b.position.y+=Math.sin(t*b.userData.s+b.userData.o)*.003;b.rotation.x+=.01*b.userData.s;b.rotation.y+=.012}});r.render(sc,cam);requestAnimationFrame(loop)}loop()}catch(e){hero.classList.add("nogl")}})();
+/* nav: scrolled surface, current-section highlight, mobile menu */
+(function(){const bar=$("#navbar"),btn=$("#navBtn"),links=$$("#nav a"),root=document.documentElement;
+const onScroll=()=>bar.classList.toggle("scrolled",scrollY>40);onScroll();addEventListener("scroll",onScroll,{passive:true});
+const setMenu=o=>{btn.setAttribute("aria-expanded",o);btn.setAttribute("aria-label",o?"Close menu":"Open menu");root.classList.toggle("menu-open",o)};
+btn.onclick=()=>setMenu(btn.getAttribute("aria-expanded")!="true");
+$("#nav").addEventListener("click",e=>{if(e.target.closest("a"))setMenu(false)});
+addEventListener("keydown",e=>{if(e.key=="Escape"&&btn.getAttribute("aria-expanded")=="true"){setMenu(false);btn.focus()}});
+matchMedia("(min-width:761px)").addEventListener("change",e=>{if(e.matches)setMenu(false)});
+if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)links.forEach(a=>{a.getAttribute("href")=="#"+en.target.id?a.setAttribute("aria-current","true"):a.removeAttribute("aria-current")})}),{rootMargin:"-45% 0px -50% 0px"});
+["about","special","menu","gallery","visit"].forEach(id=>{const el=document.getElementById(id);el&&io.observe(el)})}})();

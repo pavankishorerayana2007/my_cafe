@@ -4,16 +4,17 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css"></head><body>
+<a class="skip" href="#about">Skip to content</a>
 <div id="cur" aria-hidden="true"><span id="curT"></span></div>
-<header class="nav"><a href="#top" class="logo">LUXORA</a><nav><a href="#about">Story</a><a href="#special">Specialties</a><a href="#menu">Menu</a><a href="#gallery">Gallery</a><a href="#visit">Visit</a></nav></header>
+<header class="nav" id="navbar"><a href="#top" class="logo">LUXORA</a><button class="nav-btn" id="navBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><span class="bars" aria-hidden="true"></span></button><nav id="nav" aria-label="Primary"><a href="#about">Story</a><a href="#special">Specialties</a><a href="#menu">Menu</a><a href="#gallery">Gallery</a><a href="#visit">Visit</a></nav></header>
 <main id="top">
 <section class="hero"><img class="hero-img" src="assets/hero-front.jpg" alt="MY CAFE storefront" width="258" height="258"><div class="glow" data-d="30"></div><canvas id="cv" aria-hidden="true"></canvas><div class="fb" id="fb" aria-hidden="true">☕</div>
 <div class="hero-in"><p class="eyebrow">Café · Atelier · Since 2024</p><h1 id="h1" aria-label="LUXORA"></h1><p class="tag">Where Every Sip Becomes an Experience.</p></div><a href="#about" class="down" aria-label="Scroll down"><i></i></a></section>
 <section id="about" class="about"><div class="split"><div class="txt"><p class="eyebrow rv">Our Story</p><h2 class="rv">A ritual, not a routine.</h2><p class="rv">LUXORA began with one idea: coffee deserves the patience of fine craft. Rare beans, slow extraction and a room designed to make time soften.</p><p class="rv">Every cup is prepared at the bar in front of you, from grind to pour, by baristas who treat it as a performance.</p></div>
 <div class="imgs"><figure class="ir big"><img src="assets/gal-interior-window.jpg" alt="Warm café interior with soft lighting" loading="lazy"></figure><figure class="ir small"><img src="assets/gal-barista.jpg" alt="Barista preparing coffee" loading="lazy"></figure></div></div></section>
 <section id="special" class="special"><div class="pin"><h2>Signature Specialties</h2><div class="strip" id="strip"></div></div></section>
-<section id="menu" class="menu"><p class="eyebrow rv">The Menu</p><h2 class="rv">Crafted, one by one.</h2><div id="tabs" class="tabs" role="tablist"></div>
-<div class="tw"><button class="arr" id="mp" aria-label="Scroll menu left">‹</button><div id="mt" class="mt" tabindex="0"></div><button class="arr" id="mn" aria-label="Scroll menu right">›</button></div><div class="bar"><i id="mb"></i></div></section>
+<section id="menu" class="menu"><p class="eyebrow rv">The Menu</p><h2 class="rv">Crafted, one by one.</h2><div id="tabs" class="tabs" role="tablist" aria-label="Menu categories"></div>
+<div class="tw"><button class="arr" id="mp" aria-label="Scroll menu left">‹</button><div id="mt" class="mt" tabindex="0" role="tabpanel" aria-label="Menu items"></div><button class="arr" id="mn" aria-label="Scroll menu right">›</button></div><div class="bar"><i id="mb"></i></div></section>
 <section id="gallery" class="gallery"><h2 class="rv">The Gallery</h2><div class="masonry" id="mas"></div></section>
 <section class="atmo"><div class="bg" data-d="-20"><img src="assets/gal-rooftop-night.jpg" alt="Rooftop café lit by string lights at night" loading="lazy"></div><div class="atxt"><h2 class="rv">Step inside.<br>Stay a while.</h2><p class="rv">Amber light, velvet seats, the hush of a perfect pour.</p></div></section>
 </main>
